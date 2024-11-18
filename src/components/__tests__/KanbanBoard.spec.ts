@@ -16,4 +16,20 @@ describe('KanbanBoard', () => {
     const columnsTitles = wrapper.findAll('.kanban-column-title').map((el) => el.text());
     expect(columnsTitles).toEqual(['To Do', 'In Progress', 'Done'])
   });
+
+  it('должен показывать задачи в колонках', () => {
+    const columns = [
+      { id: 1, title: 'To Do', tasks: ['Task 1', 'Task 2'] },
+      { id: 2, title: 'In Progress', tasks: ['Task 3'] },
+    ];
+
+    const wrapper = mount(KanbanBoard, {
+      props: {columns}
+    });
+
+    const firstColumn = wrapper.findAll('.kanban-column')[0];
+
+    const firstColumnsTasks = firstColumn.findAll('.kanban-task').map((el) => el.text());
+    expect(firstColumnsTasks).toEqual(['Task 1', 'Task 2'])
+  })
 });
